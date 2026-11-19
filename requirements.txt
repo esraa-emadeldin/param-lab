@@ -1,0 +1,5 @@
+# Pinned so everyone gets the same numbers as the video script
+streamlit==1.67.0
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pytest==9.2.0

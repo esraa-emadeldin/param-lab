@@ -1,0 +1,4 @@
+{
+  // VS Code suggests these to everyone who opens the project
+  "recommendations": ["marp-team.marp-vscode", "ms-python.python"]
+}

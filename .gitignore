@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+.env
+.env.*
+.claude/settings.local.json
+
+# Global gitignore hides .vscode/settings.json; share this project's test settings
+!.vscode/settings.json
