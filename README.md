@@ -27,6 +27,7 @@ A small Streamlit app that shows the difference between **parameters** (learned 
 | `examples/streamlit-vs-flask/` | Why Streamlit? The same mini demo in Streamlit (18 lines) and Flask (52 lines) |
 | `slides/slides.md` | The presentation ([Marp](https://marp.app) Markdown) |
 | `docs/video-script.md` | The 5-minute video script |
+| `docs/how-the-code-works.md` | Beginner's guide: the code explained in simple words |
 
 ## Run the app
 ```powershell
