@@ -24,6 +24,7 @@ A small Streamlit app that shows the difference between **parameters** (learned 
 | `src/ml.py` | All the ML (gradient descent written in plain numpy, decision trees, GridSearchCV) |
 | `app.py` | The screen only (widgets + charts) |
 | `tests/` | pytest tests (ML + the app itself) |
+| `examples/streamlit-vs-flask/` | Why Streamlit? The same mini demo in Streamlit (18 lines) and Flask (52 lines) |
 | `slides/slides.md` | The presentation ([Marp](https://marp.app) Markdown) |
 | `docs/video-script.md` | The 5-minute video script |
 
