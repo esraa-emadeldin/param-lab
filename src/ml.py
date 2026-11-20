@@ -8,6 +8,8 @@ app.py only draws the screen and calls these.
 """
 
 import numpy as np
+from sklearn.datasets import load_breast_cancer, load_diabetes
+from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
@@ -107,3 +109,34 @@ def best_depth(X, y):
     X_tr, X_te, y_tr, y_te = _split(X, y)
     search = GridSearchCV(_tree(None), {"max_depth": DEPTHS}, cv=5).fit(X_tr, y_tr)
     return search.best_params_["max_depth"], search.best_estimator_.score(X_te, y_te)
+
+
+# ============================================ PART 3: REAL DATA
+# Both datasets ship INSIDE scikit-learn, so nothing is downloaded and the app
+# works offline. The functions above work on them unchanged: that's the point,
+# the ideas are the same on real data.
+
+
+def load_diabetes_bmi():
+    """Real data: 442 diabetes patients, BMI -> disease progression one year later.
+
+    scaled=False gives the real units (BMI 18-42, progression 25-346).
+    """
+    data = load_diabetes(scaled=False)
+    bmi = data.data[:, 2]  # column 2 is BMI
+    return bmi, data.target
+
+
+def exact_line(x, y):
+    """The best possible w and b, computed exactly by scikit-learn (no gradient descent).
+
+    With real data nobody knows the "true" w and b, so we compare our
+    gradient descent with this answer instead.
+    """
+    model = LinearRegression().fit(x.reshape(-1, 1), y)
+    return float(model.coef_[0]), float(model.intercept_)
+
+
+def load_tumours():
+    """Real data: 569 breast tumours, 30 measurements -> malignant (0) or benign (1)."""
+    return load_breast_cancer(return_X_y=True)

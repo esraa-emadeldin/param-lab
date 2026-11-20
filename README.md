@@ -14,6 +14,9 @@ A small Streamlit app that shows the difference between **parameters** (learned 
   | 15 | 100% | 65.0% |
 
   **GridSearchCV** with 5-fold cross-validation picks **depth 4** by itself.
+- **Part 3, Real data:** the same code on two real datasets that ship with scikit-learn (no download):
+  - *Diabetes* (442 patients, BMI → disease progression): our gradient descent learns **w = 10.23, b = −117.77**, exactly scikit-learn's answer.
+  - *Breast cancer* (569 tumours): depth 15 gets 100% train but ~92% test. GridSearchCV picks **depth 3**.
 
 ## Files
 | Path | What |

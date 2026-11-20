@@ -2,7 +2,16 @@
 
 import math
 
-from src.ml import best_depth, depth_curve, gradient_descent, load_pass_fail, load_scores
+from src.ml import (
+    best_depth,
+    depth_curve,
+    exact_line,
+    gradient_descent,
+    load_diabetes_bmi,
+    load_pass_fail,
+    load_scores,
+    load_tumours,
+)
 
 # ------------------------------------------------ PARAMETERS (learned)
 
@@ -65,3 +74,31 @@ def test_grid_search_finds_a_good_depth():
     _, _, test = depth_curve(X, y)
     assert 2 <= depth <= 8
     assert acc >= max(test) - 0.04
+
+
+# ------------------------------------------------------ REAL DATA
+
+
+def test_real_datasets_load_offline():
+    bmi, progression = load_diabetes_bmi()
+    assert len(bmi) == len(progression) == 442
+    assert 15 < bmi.min() and bmi.max() < 45  # real BMI units, not scaled
+    X, y = load_tumours()
+    assert X.shape == (569, 30)
+
+
+def test_gradient_descent_matches_sklearn_on_real_data():
+    # Nobody knows the "true" line for real patients, so we compare our
+    # hand-written gradient descent with scikit-learn's exact answer.
+    bmi, progression = load_diabetes_bmi()
+    w, b, _ = gradient_descent(bmi, progression, lr=0.1, steps=100)[-1]
+    exact_w, exact_b = exact_line(bmi, progression)
+    assert abs(w - exact_w) < 0.01
+    assert abs(b - exact_b) < 0.1
+
+
+def test_deep_tree_memorises_real_data():
+    X, y = load_tumours()
+    _, train, test = depth_curve(X, y)
+    assert train[-1] == 1.0  # depth 15: perfect on tumours it has seen
+    assert test[-1] < max(test)  # but not the best on new tumours
